@@ -55,9 +55,8 @@ function App() {
 			rolls.map((roll) => {
 				if (roll.id === id) {
 					return {
-						value: roll.value,
-						isHeld: !roll.isHeld,
-						id: roll.id
+						...roll,
+						isHeld: !roll.isHeld
 					};
 				} else {
 					return roll;
