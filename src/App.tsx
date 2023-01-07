@@ -1,31 +1,80 @@
 import "./App.css";
-import { useState } from "react";
+import { JSXElementConstructor, useState } from "react";
 import reactLogo from "./assets/react.svg";
+import * as React from "react";
+import { nanoid } from "nanoid";
 import Die from "./components/Die";
 import Button from "./components/Button";
+import {
+	AllNewDice,
+	RollsType,
+	HandleDiePush,
+	RollObject
+} from "./config/types";
 
 function App() {
-	const [rolls, setRolls] = useState([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+	const [rolls, setRolls] = useState<RollsType>([
+		{ value: 1, isHeld: true, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() }
+	]);
 
-	function allNewDice() {
+	const allNewDice: AllNewDice = () => {
 		function rollDie() {
 			let roll = Math.floor(Math.random() * 6) + 1;
 			console.log(roll);
 			return roll;
 		}
-		let outputArray = [];
-		for (let i = 0; i < 10; i++) {
-			let num = rollDie();
-			outputArray.push(num);
-		}
+		let outputArray = rolls.map((roll) => {
+			if (roll.isHeld) {
+				return roll;
+			} else {
+				return {
+					id: roll.id,
+					value: rollDie(),
+					isHeld: false
+				};
+			}
+		});
 		return outputArray;
-	}
+	};
 
 	function handleButtonPush() {
 		setRolls(allNewDice());
 	}
 
-	const diceElements = rolls.map((num, i) => <Die key={i} value={num} />);
+	const handleDiePush: HandleDiePush = (id: string) => {
+		setRolls(
+			rolls.map((roll) => {
+				if (roll.id === id) {
+					return {
+						value: roll.value,
+						isHeld: !roll.isHeld,
+						id: roll.id
+					};
+				} else {
+					return roll;
+				}
+			})
+		);
+	};
+
+	const diceElements = rolls.map((obj, i) => (
+		<Die
+			key={i}
+			value={obj.value}
+			isHeld={obj.isHeld}
+			id={obj.id}
+			handleDiePush={handleDiePush}
+		/>
+	));
 
 	return (
 		<div className="App">
