@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Karla:wght@400;700&display=swap");
+
+.Button {
+	text-align: center;
+	height: 5%;
+	width: 15%;
+	padding: 1% 5% 3% 5%;
+	font-family: "Karla", sans-serif;
+	font-size: 1rem;
+	font-style: bold;
+	vertical-align: text-top;
+	color: white;
+	border: 1px black solid;
+	background-color: #5035ff;
+	margin: 0 auto;
+	box-shadow: 0px 3.2px 7.68px rgba(0, 0, 0, 0.18);
+	border-radius: 3.81277px;
+}
+
+.Button:focus {
+	outline: none;
+}
+
+.Button:active {
+	box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
+}
+
+@media screen and (min-width: 520px) {
+	.Button {
+		padding: 3% 5% 3% 5%;
+		margin: 5% auto;
+		font-size: 2.5rem;
+	}
+}
+
+@media screen and (min-width: 1000px) and (orientation: landscape) {
+	.Button {
+		padding: 3% 5% 3% 5%;
+		margin: 5% auto;
+		font-size: 2.5rem;
+	}
+}

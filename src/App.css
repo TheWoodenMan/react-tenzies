@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Karla:wght@400;700&display=swap");
+
 #root {
 	background-color: #e5e5e5;
 	display: flex;
@@ -25,7 +27,47 @@
 	border-radius: 10%;
 }
 
+.textBox {
+	color: #2b283a;
+	text-align: center;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	margin: 0;
+}
+
+.textBox h1 {
+	font-family: "Karla", sans-serif;
+	font-weight: bold;
+	font-size: 3rem;
+	margin: 0;
+}
+
+.textBox h3 {
+	width: 100%;
+	font-family: "Inter", sans-serif;
+	font-size: 0.8rem;
+	line-height: 2.2rem;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	justify-content: center;
+}
+
 @media screen and (min-width: 520px) {
+	.textBox h1 {
+		font-family: "Karla", sans-serif;
+		font-weight: bold;
+		font-size: 3rem;
+	}
+
+	.textBox h3 {
+		width: 80%;
+		font-family: "Inter", sans-serif;
+		font-size: 2rem;
+	}
 }
 
 @media screen and (min-width: 1000px) and (orientation: landscape) {
@@ -50,5 +92,30 @@
 		border-radius: 10%;
 		justify-content: center;
 		align-items: center;
+	}
+
+	.textBox {
+		color: #2b283a;
+		text-align: center;
+		display: flex;
+		flex-flow: column;
+		align-items: center;
+		margin: 5% 0 0 0;
+	}
+
+	.textBox h1 {
+		font-family: "Karla", sans-serif;
+		font-weight: bold;
+	}
+
+	.textBox h3 {
+		width: 60%;
+		font-family: "Inter", sans-serif;
+	}
+
+	.container {
+		display: grid;
+		grid-template-columns: auto / auto 1fr 1fr 1fr 1fr 1fr;
+		justify-content: center;
 	}
 }
