@@ -35,8 +35,8 @@
 
 @media screen and (min-width: 1000px) and (orientation: landscape) {
 	.Button {
-		padding: 3% 5% 3% 5%;
-		margin: 5% auto;
-		font-size: 2.5rem;
+		padding: 2% 5% 2% 5%;
+		margin: 3% auto;
+		font-size: 2rem;
 	}
 }

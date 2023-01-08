@@ -5,16 +5,25 @@ import * as React from "react";
 import { nanoid } from "nanoid";
 import Die from "./components/Die";
 import Button from "./components/Button";
+import Confetti from "react-confetti";
 import {
 	AllNewDice,
 	RollsType,
 	HandleDiePush,
-	RollObject
+	ResetGame
 } from "./config/types";
+
+/**
+ * Challenge:
+ * 1. Add new state called `tenzies`, default to false. It
+ *    represents whether the user has won the game yet or not.
+ * 2. Add an effect that runs every time the `dice` state array
+ *    changes. For now, just console.log("Dice state changed").
+ */
 
 function App() {
 	const [rolls, setRolls] = useState<RollsType>([
-		{ value: 1, isHeld: true, id: nanoid() },
+		{ value: 1, isHeld: false, id: nanoid() },
 		{ value: 1, isHeld: false, id: nanoid() },
 		{ value: 1, isHeld: false, id: nanoid() },
 		{ value: 1, isHeld: false, id: nanoid() },
@@ -25,6 +34,7 @@ function App() {
 		{ value: 1, isHeld: false, id: nanoid() },
 		{ value: 1, isHeld: false, id: nanoid() }
 	]);
+	const [tenzies, setTenzies] = useState<boolean>(false);
 
 	const allNewDice: AllNewDice = () => {
 		function rollDie() {
@@ -37,9 +47,8 @@ function App() {
 				return roll;
 			} else {
 				return {
-					id: roll.id,
-					value: rollDie(),
-					isHeld: false
+					...roll,
+					value: rollDie()
 				};
 			}
 		});
@@ -65,6 +74,37 @@ function App() {
 		);
 	};
 
+	const resetGame: ResetGame = () => {
+		setTenzies(false);
+		setRolls(
+			rolls.map((roll) => {
+				return {
+					...roll,
+					value: 1,
+					isHeld: false
+				};
+			})
+		);
+	};
+
+	React.useEffect(() => {
+		let allRollsHeld =
+			rolls.filter((roll) => roll.isHeld === true).length === 10;
+		let winCheck = rolls[0].value;
+		let allRollsEqual =
+			rolls.filter((roll) => roll.value === winCheck).length === 10;
+		if (allRollsEqual && allRollsHeld) {
+			setTenzies(true);
+			console.log("You Win!");
+		}
+
+		//   return () => {
+		// 	second
+		//   }
+	}, [rolls]);
+
+	const reactConfetti = tenzies && <Confetti />;
+
 	const diceElements = rolls.map((obj, i) => (
 		<Die
 			key={i}
@@ -86,7 +126,13 @@ function App() {
 					</h3>
 				</div>
 				<div className="container">{diceElements}</div>
-				<Button handleButtonPush={handleButtonPush} />
+				<Button
+					handleButtonPush={handleButtonPush}
+					resetGame={resetGame}
+					tenzies={tenzies}
+				/>
+
+				{reactConfetti}
 			</div>
 		</div>
 	);
