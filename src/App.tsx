@@ -13,14 +13,6 @@ import {
 	ResetGame
 } from "./config/types";
 
-/**
- * Challenge:
- * 1. Add new state called `tenzies`, default to false. It
- *    represents whether the user has won the game yet or not.
- * 2. Add an effect that runs every time the `dice` state array
- *    changes. For now, just console.log("Dice state changed").
- */
-
 function App() {
 	const [rolls, setRolls] = useState<RollsType>([
 		{ value: 1, isHeld: false, id: nanoid() },
